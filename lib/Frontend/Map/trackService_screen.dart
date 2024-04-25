@@ -87,12 +87,14 @@ class _TrackServiceState extends State<TrackService> {
     locationSubscription =
         location!.onLocationChanged.listen((LocationData cLoc) {
       currentLocation = cLoc;
-
+      print('${currentLocation}location');
       if (mounted) {
         setState(() {});
       }
-
-      updatePinOnMap();
+      if (currentLocation != null) {
+        updatePinOnMap();
+      }
+      // updatePinOnMap();
     });
   }
 
@@ -121,6 +123,7 @@ class _TrackServiceState extends State<TrackService> {
         currentLocation!.latitude.toString(),
         currentLocation!.longitude.toString(),
       );
+      print(response);
       if (response["message"] == "Unauthenticated.") {
         if (mounted) {
           Navigator.pushAndRemoveUntil(
@@ -745,6 +748,7 @@ class _TrackServiceState extends State<TrackService> {
   // }
 
   void updatePinOnMap() async {
+    print('updatepinfunct');
     // create a new CameraPosition instance
     // every time the location changes, so the camera
     // follows the pin as it moves with an animation
@@ -756,6 +760,8 @@ class _TrackServiceState extends State<TrackService> {
     );
     controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(cPosition));
+    print('cameraposition');
+
     if (mounted) {
       setState(() {});
     }

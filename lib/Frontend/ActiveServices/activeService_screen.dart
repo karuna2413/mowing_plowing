@@ -189,6 +189,7 @@ class _ActiveServiceState extends State<ActiveService>
   }
 
   void checkPermissionStatus(
+    BuildContext context,
     String fromWhere,
     String ln,
     String lt,
@@ -199,8 +200,13 @@ class _ActiveServiceState extends State<ActiveService>
     String? period,
     String? service_for,
   ) async {
-    Location location = Location();
+    print('location');
+    print(fromWhere);
+    print(ln);
+    print(lt);
+    print(address);
 
+    Location location = Location();
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
     LocationData _locationData;
@@ -209,9 +215,12 @@ class _ActiveServiceState extends State<ActiveService>
     //
     //
     if (!_serviceEnabled && _permissionGranted == PermissionStatus.denied) {
+      print('permission denied');
       _permissionGranted = await location.requestPermission();
       _serviceEnabled = await location.requestService();
       if (_serviceEnabled && _permissionGranted == PermissionStatus.granted) {
+        print('permission granted');
+
         if (mounted) {
           Navigator.push(
             context,
@@ -233,9 +242,13 @@ class _ActiveServiceState extends State<ActiveService>
       }
     } else if (_serviceEnabled &&
         _permissionGranted == PermissionStatus.denied) {
+      print('permission denied2');
+
       _permissionGranted = await location.requestPermission();
       if (_permissionGranted == PermissionStatus.granted) {
+        print('inside if block');
         if (mounted) {
+          print('inside mount');
           Navigator.push(
             context,
             MaterialPageRoute(
@@ -645,6 +658,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                                     print('permission status onway');
 
                                                                                     checkPermissionStatus(
+                                                                                      context,
                                                                                       'OnMyWay',
                                                                                       data[index].ln,
                                                                                       data[index].lt,
@@ -679,6 +693,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                                         print('jobstart page');
 
                                                                                         checkPermissionStatus(
+                                                                                          context,
                                                                                           'jobStarted',
                                                                                           data[index].ln,
                                                                                           data[index].lt,
@@ -1071,6 +1086,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                             : data[index].on_the_way == "1" && data[index].at_location_and_started_job == null && data[index].finished_job == null
                                                                                 ? () {
                                                                                     checkPermissionStatus(
+                                                                                      context,
                                                                                       'OnMyWay',
                                                                                       data[index].ln,
                                                                                       data[index].lt,
@@ -1103,6 +1119,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                                 : data[index].on_the_way == "1" && data[index].at_location_and_started_job == "1" && data[index].finished_job == null
                                                                                     ? () {
                                                                                         checkPermissionStatus(
+                                                                                          context,
                                                                                           'jobStarted',
                                                                                           data[index].ln,
                                                                                           data[index].lt,
@@ -1495,6 +1512,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                             : data[index].on_the_way == "1" && data[index].at_location_and_started_job == null && data[index].finished_job == null
                                                                                 ? () {
                                                                                     checkPermissionStatus(
+                                                                                      context,
                                                                                       'OnMyWay',
                                                                                       data[index].ln,
                                                                                       data[index].lt,
@@ -1527,6 +1545,7 @@ class _ActiveServiceState extends State<ActiveService>
                                                                                 : data[index].on_the_way == "1" && data[index].at_location_and_started_job == "1" && data[index].finished_job == null
                                                                                     ? () {
                                                                                         checkPermissionStatus(
+                                                                                          context,
                                                                                           'jobStarted',
                                                                                           data[index].ln,
                                                                                           data[index].lt,

@@ -208,6 +208,7 @@ class _LogInState extends State<LogIn> {
                         passwordController.text,
                         "provider",
                       );
+                      print(response);
                       if (response["success"]) {
                         Map<String, dynamic> user = response["data"]["user"];
                         await localStorage.setString(

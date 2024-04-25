@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// String uri = "https://staging.mowingandplowing.com";
-String uri = "https://mowingandplowing.com";
+String uri = "https://staging.mowingandplowing.com";
+// String uri = "https://mowingandplowing.com";
 // String uri = "https://mowing-plowing.mangoitsol.com";
 // http://masterbranch-env.us-east-1.elasticbeanstalk.com/login
 
@@ -240,6 +240,7 @@ class BaseClient {
       maskType: EasyLoadingMaskType.black,
     );
     var url = Uri.parse(baseUrl + api);
+    print(url);
     var requestData = {
       "phone_number": phoneNumber,
       "password": password,
@@ -251,6 +252,9 @@ class BaseClient {
       headers: headers,
       body: body,
     );
+    print(response);
+    print(json.decode(response.body));
+
     return json.decode(response.body);
   }
   //
